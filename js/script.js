@@ -1,13 +1,19 @@
+import { key } from './key.js'
+
+
 export const fetchAccessToken = async() => {
     try {
         const accessRequest = await fetch("https://api.srgssr.ch/oauth/v1/accesstoken?grant_type=client_credentials", {
-            method: 'POST', 
+            method: 'POST',
+            body: JSON.stringify({
+                expires_in: 3600,
+            }),
             headers: new Headers({
-                'Authorization': `Basic ${btoa('HUXGqJFiw9foe8jAfy4NIc42NMymYP5O:zWCxQkoDqnHkSZ2Y')}`, 
+                'Authorization': `Basic ${btoa(key)}`, 
             }), 
         });
         const accessResponse = await accessRequest.json();
-        console.log(accessResponse.access_token)
+        console.log(accessResponse)
         return accessResponse.access_token;
     } catch(error) {
         console.error('Access Token Error:', error);
@@ -17,7 +23,13 @@ export const fetchAccessToken = async() => {
 
 fetchAccessToken().then(token => {
     fetchAPI(token).then(response => {
-        console.log(response);
+        console.log(response.data.articles.edges);
+
+        const klimaArtikel = response.data.articles.edges.filter(article => {
+            return JSON.stringify(article).includes("Klima");
+        })
+
+        console.log(klimaArtikel);
     }).catch(error => {
         console.error('API Fetch Error:', error);
     });
@@ -25,7 +37,7 @@ fetchAccessToken().then(token => {
 
 export const fetchAPI = async(accessToken) => {
     try {
-        const weatherRequest = await fetch("https://api.srgssr.ch/srgssr-contents/v1/articles?items=10&bu=SRF&genre=News&sort=modifiedAt&order=DESC&publishedDateFrom=2023-06-19T00%3A00%3A00Z&publishedDateTo=2023-06-20T00%3A00%3A00Z", {
+        const weatherRequest = await fetch("https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-12-31T00%3A00%3A00Z", {
             method: 'GET',
             headers: new Headers({
                 'Authorization': `Bearer ${accessToken}`,
