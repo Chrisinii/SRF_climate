@@ -35,9 +35,44 @@ fetchAccessToken().then(token => {
         const datenAnzeigeElement = document.getElementById('datenAnzeige');
 
         klimaArtikel.forEach(article => {
-            const titelElement = document.createElement('p');
-            titelElement.textContent = article.title[0].content;
+
+            const titelElement = document.createElement('div'); 
+            titelElement.classList.add('article-container'); // CSS-Klasse 
+        
+            const titelElementText = document.createElement('h2'); 
+            titelElementText.textContent = article.title[0].content;
+            
+            const leadElement = document.createElement('p'); 
+            leadElement.textContent = article.lead[0].content;
+            leadElement.classList.add('lead'); // CSS-Klasse 
+            
+            // Elemente aus article.content.text Array zusammenfügen
+            const contentArray = article.content.text;
+            const contentText = contentArray.join(' '); // Alle Elemente zusammenführen
+            
+            // Inhalt auf 800 Zeichen kürzen
+            const maxLength = 800;
+            const truncatedContent = contentText.length > maxLength ? contentText.slice(0, maxLength) + '...' : contentText;
+            
+            const contentElement = document.createElement('p');
+            contentElement.textContent = truncatedContent;
+
+            // Erstelle den Button
+            const buttonElement = document.createElement('button');
+            buttonElement.textContent = 'Weiterlesen';
+            buttonElement.addEventListener('click', () => {
+                // Weiterleitung zur angegebenen URL
+                window.location.href = article.url.url; // article.url.url enthält die URL
+    });
+
+
+            titelElement.appendChild(titelElementText);
+            titelElement.appendChild(leadElement);
+            titelElement.appendChild(contentElement);
+            titelElement.appendChild(buttonElement);
+        
             datenAnzeigeElement.appendChild(titelElement);
+
         });
 
     }).catch(error => {

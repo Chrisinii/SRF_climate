@@ -1,0 +1,32 @@
+body {
+     /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+/* Style for the container */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); 
+    gap: 40px; 
+    padding: 0px 20px 0px 20px;
+}
+
+/* Style for each article container */
+.article-container {
+    background-color: #f2f2f2;
+    padding: 40px;
+    border-radius: 15px 50px 30px;
+    box-sizing: border-box;
+}
+
+.article-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.lead {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
