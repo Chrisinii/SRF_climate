@@ -1,5 +1,7 @@
 import { key } from './key.js'
 
+let klimaArtikel = []; // Globale Variable
+
 // Todo: Alle gewünschten Daten aus API rausholen lassen. Diese dann mit Flexbox anzeigen lassen.
 export const fetchAccessToken = async() => {
     try {
@@ -41,6 +43,7 @@ fetchAccessToken().then(token => {
         
             const titelElementText = document.createElement('h2'); 
             titelElementText.textContent = article.title[0].content;
+            titelElementText.classList.add('titel'); // CSS-Klasse 
             
             const leadElement = document.createElement('p'); 
             leadElement.textContent = article.lead[0].content;
@@ -63,13 +66,27 @@ fetchAccessToken().then(token => {
             buttonElement.addEventListener('click', () => {
                 // Weiterleitung zur angegebenen URL
                 window.location.href = article.url.url; // article.url.url enthält die URL
-    });
+            });
+
+           // Erstelle den Favoriten-Button
+            const favoriteButton = document.createElement('button');
+            favoriteButton.textContent = 'Als Favorit markieren';
+            favoriteButton.addEventListener('click', () => {
+                if (article.isFavorite) {
+                    delete article.isFavorite; // Entferne den Favoritenstatus
+                    favoriteButton.classList.remove('favorite');
+                } else {
+                    article.isFavorite = true; // Setze den Artikel als Favorit
+                    favoriteButton.classList.add('favorite');
+                }
+            });
 
 
             titelElement.appendChild(titelElementText);
             titelElement.appendChild(leadElement);
             titelElement.appendChild(contentElement);
             titelElement.appendChild(buttonElement);
+            titelElement.appendChild(favoriteButton);
         
             datenAnzeigeElement.appendChild(titelElement);
 
@@ -186,6 +203,50 @@ export const fetchAPIThree = async(accessToken) => {
     }
 
 }
+
+// Favoriten anzeigen
+
+function updateFavoriteArticlesView() {
+    const alleArtikel = document.querySelectorAll('.article-container');
+    alleArtikel.forEach(container => {
+        if (container.querySelector('.favorite')) {
+            container.style.display = 'block'; // Zeige Favoriten
+        } else {
+            container.style.display = 'none'; // Verstecke Nicht-Favoriten
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleFavoritesBtn = document.getElementById('toggleFavorites');
+    let showOnlyFavorites = false; // Flag, um den aktuellen Zustand zu speichern
+
+    toggleFavoritesBtn.addEventListener('click', () => {
+        showOnlyFavorites = !showOnlyFavorites; // Umschalten zwischen Zuständen
+        toggleFavoritesBtn.textContent = showOnlyFavorites ? "Alle Artikel anzeigen" : "Nur Favoriten anzeigen";
+        updateArticlesDisplay(showOnlyFavorites); // Aktualisiere die Anzeige basierend auf dem Zustand
+    });
+});
+
+function updateArticlesDisplay(showFavorites) {
+    const alleArtikel = document.querySelectorAll('.article-container');
+    alleArtikel.forEach((container, index) => {
+        const article = klimaArtikel[index]; // Greife auf den entsprechenden Artikel zu
+
+        if (showFavorites) {
+            // Zeige nur Favoriten
+            if (!article.isFavorite) {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        } else {
+            // Zeige alle Artikel
+            container.style.display = 'block';
+        }
+    });
+}
+
 
 // // Daten anzeigen
 

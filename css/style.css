@@ -1,6 +1,5 @@
 body {
-     /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
 /* Style for the container */
@@ -19,14 +18,17 @@ body {
     box-sizing: border-box;
 }
 
-.article-container h2 {
+.titel {
     font-size: 1.3rem;
     margin-bottom: 5px;
 }
 
 .lead {
-    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 5px;
+}
+
+.favorite {
+    background-color: gold; /* Oder eine andere Farbe/Styling Ihrer Wahl */
 }
 
