@@ -65,8 +65,8 @@ fetchAccessToken().then(token => {
             const buttonElement = document.createElement('button');
             buttonElement.textContent = 'Weiterlesen';
             buttonElement.addEventListener('click', () => {
-                // Weiterleitung zur angegebenen URL
-                window.location.href = article.url.url; // article.url.url enthält die URL
+                // Weiterleitung zur angegebenen URL in einem neuen Tab
+                window.open(article.url.url, '_blank'); // article.url.url enthält die URL
             });
 
            // Erstelle den Favoriten-Button
@@ -76,9 +76,11 @@ fetchAccessToken().then(token => {
                 if (article.isFavorite) {
                     delete article.isFavorite; // Entferne den Favoritenstatus
                     favoriteButton.classList.remove('favorite');
+                    removeFavorite(article.id); // Entferne Favorit aus dem Local Storage
                 } else {
                     article.isFavorite = true; // Setze den Artikel als Favorit
                     favoriteButton.classList.add('favorite');
+                    saveFavorite(article.id); // Speichere Favorit im Local Storage
                 }
             });
 
