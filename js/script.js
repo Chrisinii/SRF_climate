@@ -3,6 +3,7 @@ import { key } from './key.js'
 let klimaArtikel = []; // Globale Variable
 
 // Todo: Alle gewünschten Daten aus API rausholen lassen. Diese dann mit Flexbox anzeigen lassen.
+
 export const fetchAccessToken = async() => {
     try {
         const accessRequest = await fetch("https://api.srgssr.ch/oauth/v1/accesstoken?grant_type=client_credentials", {
@@ -245,6 +246,21 @@ function updateArticlesDisplay(showFavorites) {
             container.style.display = 'block';
         }
     });
+
+}
+
+function saveFavorite(articleId) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    if (!favorites.includes(articleId)) {
+        favorites.push(articleId);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+}
+
+function removeFavorite(articleId) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter(id => id !== articleId);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
 
