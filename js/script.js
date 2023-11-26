@@ -2,8 +2,6 @@ import { key } from './key.js'
 
 let klimaArtikel = []; // Globale Variable
 
-// Todo: Alle gewünschten Daten aus API rausholen lassen. Diese dann mit Flexbox anzeigen lassen.
-
 export const fetchAccessToken = async() => {
     try {
         const accessRequest = await fetch("https://api.srgssr.ch/oauth/v1/accesstoken?grant_type=client_credentials", {
@@ -30,7 +28,7 @@ fetchAccessToken().then(token => {
         // console.log(response.data.articles.edges);
 
         klimaArtikel = response.data.articles.edges.filter(article => {
-            return JSON.stringify(article).includes("Klima");
+            return JSON.stringify(article).includes("Klimal");
         })
 
         console.log(klimaArtikel);
@@ -73,6 +71,7 @@ fetchAccessToken().then(token => {
            // Erstelle den Favoriten-Button
             const favoriteButton = document.createElement('button');
             favoriteButton.textContent = 'Als Favorit markieren';
+            favoriteButton.classList.add('SecondButton');
 
             if (isFavorite(article.id)) {
                 favoriteButton.textContent = 'Favorit';
@@ -149,6 +148,80 @@ fetchAccessToken().then(token => {
         })
 
         console.log(klimaArtikel);
+
+        const datenAnzeigeElement = document.getElementById('datenAnzeige');
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        klimaArtikel.forEach(article => {
+
+            const ContainerElement = document.createElement('div'); 
+            ContainerElement.classList.add('article-container'); // CSS-Klasse 
+        
+            const titelElement = document.createElement('h2'); 
+            titelElement.textContent = article.title[0].content;
+            titelElement.classList.add('titel'); // CSS-Klasse 
+            
+            const leadElement = document.createElement('p'); 
+            leadElement.textContent = article.lead[0].content;
+            leadElement.classList.add('lead'); // CSS-Klasse 
+            
+            // Elemente aus article.content.text Array zusammenfügen
+            const contentArray = article.content.text;
+            const contentText = contentArray.join(' '); // Alle Elemente zusammenführen
+            
+            // Inhalt auf 800 Zeichen kürzen
+            const maxLength = 800;
+            const truncatedContent = contentText.length > maxLength ? contentText.slice(0, maxLength) + '...' : contentText;
+            
+            const contentElement = document.createElement('p');
+            contentElement.textContent = truncatedContent;
+
+            // Erstelle den Button
+            const buttonElement = document.createElement('button');
+            buttonElement.textContent = 'Weiterlesen';
+            buttonElement.addEventListener('click', () => {
+                // Weiterleitung zur angegebenen URL in einem neuen Tab
+                window.open(article.url.url, '_blank'); // article.url.url enthält die URL
+            });
+
+           // Erstelle den Favoriten-Button
+            const favoriteButton = document.createElement('button');
+            favoriteButton.textContent = 'Als Favorit markieren';
+            favoriteButton.classList.add('SecondButton');
+
+            if (isFavorite(article.id)) {
+                favoriteButton.textContent = 'Favorit';
+                favoriteButton.classList.add('favorite');
+                article.isFavorite = true;
+            } else {
+                favoriteButton.textContent = 'Als Favorit markieren';
+            }
+    
+            favoriteButton.addEventListener('click', () => {
+                if (article.isFavorite) {
+                    delete article.isFavorite;
+                    favoriteButton.classList.remove('favorite');
+                    removeFavorite(article.id);
+                    favoriteButton.textContent = 'Als Favorit markieren';
+                } else {
+                    article.isFavorite = true;
+                    favoriteButton.classList.add('favorite');
+                    saveFavorite(article.id);
+                    favoriteButton.textContent = 'Favorit';
+                }
+            });
+
+
+            ContainerElement.appendChild(titelElement);
+            ContainerElement.appendChild(leadElement);
+            ContainerElement.appendChild(contentElement);
+            ContainerElement.appendChild(buttonElement);
+            ContainerElement.appendChild(favoriteButton);
+        
+            datenAnzeigeElement.appendChild(ContainerElement);
+
+        });
+
     }).catch(error => {
         console.error('API Fetch Error:', error);
     });
@@ -189,6 +262,80 @@ fetchAccessToken().then(token => {
         })
 
         console.log(klimaArtikel);
+
+        const datenAnzeigeElement = document.getElementById('datenAnzeige');
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        klimaArtikel.forEach(article => {
+
+            const ContainerElement = document.createElement('div'); 
+            ContainerElement.classList.add('article-container'); // CSS-Klasse 
+        
+            const titelElement = document.createElement('h2'); 
+            titelElement.textContent = article.title[0].content;
+            titelElement.classList.add('titel'); // CSS-Klasse 
+            
+            const leadElement = document.createElement('p'); 
+            leadElement.textContent = article.lead[0].content;
+            leadElement.classList.add('lead'); // CSS-Klasse 
+            
+            // Elemente aus article.content.text Array zusammenfügen
+            const contentArray = article.content.text;
+            const contentText = contentArray.join(' '); // Alle Elemente zusammenführen
+            
+            // Inhalt auf 800 Zeichen kürzen
+            const maxLength = 800;
+            const truncatedContent = contentText.length > maxLength ? contentText.slice(0, maxLength) + '...' : contentText;
+            
+            const contentElement = document.createElement('p');
+            contentElement.textContent = truncatedContent;
+
+            // Erstelle den Button
+            const buttonElement = document.createElement('button');
+            buttonElement.textContent = 'Weiterlesen';
+            buttonElement.addEventListener('click', () => {
+                // Weiterleitung zur angegebenen URL in einem neuen Tab
+                window.open(article.url.url, '_blank'); // article.url.url enthält die URL
+            });
+
+           // Erstelle den Favoriten-Button
+            const favoriteButton = document.createElement('button');
+            favoriteButton.textContent = 'Als Favorit markieren';
+            favoriteButton.classList.add('SecondButton');
+
+            if (isFavorite(article.id)) {
+                favoriteButton.textContent = 'Favorit';
+                favoriteButton.classList.add('favorite');
+                article.isFavorite = true;
+            } else {
+                favoriteButton.textContent = 'Als Favorit markieren';
+            }
+    
+            favoriteButton.addEventListener('click', () => {
+                if (article.isFavorite) {
+                    delete article.isFavorite;
+                    favoriteButton.classList.remove('favorite');
+                    removeFavorite(article.id);
+                    favoriteButton.textContent = 'Als Favorit markieren';
+                } else {
+                    article.isFavorite = true;
+                    favoriteButton.classList.add('favorite');
+                    saveFavorite(article.id);
+                    favoriteButton.textContent = 'Favorit';
+                }
+            });
+
+
+            ContainerElement.appendChild(titelElement);
+            ContainerElement.appendChild(leadElement);
+            ContainerElement.appendChild(contentElement);
+            ContainerElement.appendChild(buttonElement);
+            ContainerElement.appendChild(favoriteButton);
+        
+            datenAnzeigeElement.appendChild(ContainerElement);
+
+        });
+
     }).catch(error => {
         console.error('API Fetch Error:', error);
     });
@@ -251,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const datenAnzeigeElement = document.getElementById('datenAnzeige');
-            const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
             klimaArtikel.forEach(article => {
                 const ContainerElement = document.createElement('div');
@@ -310,24 +456,27 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
-function isFavorite(articleId) {
-    console.log("Prüfe Favorit: ", articleId);
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    return favorites.includes(articleId);
-}
-
 function saveFavorite(articleId) {
-    console.log("Speichere Favorit: ", articleId);
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     if (!favorites.includes(articleId)) {
         favorites.push(articleId);
         localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateKlimaArtikelFavoriteStatus(articleId, true);
     }
 }
 
 function removeFavorite(articleId) {
-    console.log("Entferne Favorit: ", articleId);
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     favorites = favorites.filter(id => id !== articleId);
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateKlimaArtikelFavoriteStatus(articleId, false);
+}
+
+function updateKlimaArtikelFavoriteStatus(articleId, isFavorite) {
+    klimaArtikel = klimaArtikel.map(article => {
+        if (article.id === articleId) {
+            return { ...article, isFavorite: isFavorite };
+        }
+        return article;
+    });
 }

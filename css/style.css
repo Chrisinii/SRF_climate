@@ -1,6 +1,14 @@
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #f2f2f2;
   }
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00536a;
+    text-align: center;
+}
 
 /* Style for the container */
 .container {
@@ -12,7 +20,7 @@ body {
 
 /* Style for each article container */
 .article-container {
-    background-color: #f2f2f2;
+    background-color: #c8d8e4;
     padding: 40px;
     border-radius: 15px 50px 30px;
     box-sizing: border-box;
@@ -28,7 +36,20 @@ body {
     margin-bottom: 5px;
 }
 
+button {
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.SecondButton {
+    margin-left: 20px;
+}
+
 .favorite {
     background-color: gold; /* Oder eine andere Farbe/Styling Ihrer Wahl */
 }
 
+#toggleFavorites {
+    margin-bottom: 20px;
+}
