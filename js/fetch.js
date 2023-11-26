@@ -112,7 +112,7 @@ fetchAccessToken().then(token => {
 });
 
 
-// TODO: Mehrere Requests für Artikel oder mehr als 500 Resultate
+
 export const fetchAPI = async(accessToken) => {
     try {
         const NewsRequest = await fetch("https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-04-30T00%3A00%3A00Z", {
@@ -132,7 +132,6 @@ export const fetchAPI = async(accessToken) => {
 
         console.log(NewsRequest)
         return await NewsRequest.json();
-        
         
     } catch(error) {
         console.error('Error:', error);  // Log the error to the console
@@ -178,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
             klimaArtikel.forEach(article => {
                 const ContainerElement = document.createElement('div');
                 ContainerElement.classList.add('article-container');
+
+                // ... (Erstellen von titelElement, leadElement, contentElement)
 
                 const favoriteButton = document.createElement('button');
                     favoriteButton.textContent = 'Als Favorit markieren';
