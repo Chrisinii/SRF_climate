@@ -29,22 +29,23 @@ fetchAccessToken().then(token => {
     fetchAPI(token).then(response => {
         // console.log(response.data.articles.edges);
 
-        const klimaArtikel = response.data.articles.edges.filter(article => {
+        klimaArtikel = response.data.articles.edges.filter(article => {
             return JSON.stringify(article).includes("Klima");
         })
 
         console.log(klimaArtikel);
 
         const datenAnzeigeElement = document.getElementById('datenAnzeige');
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
         klimaArtikel.forEach(article => {
 
-            const titelElement = document.createElement('div'); 
-            titelElement.classList.add('article-container'); // CSS-Klasse 
+            const ContainerElement = document.createElement('div'); 
+            ContainerElement.classList.add('article-container'); // CSS-Klasse 
         
-            const titelElementText = document.createElement('h2'); 
-            titelElementText.textContent = article.title[0].content;
-            titelElementText.classList.add('titel'); // CSS-Klasse 
+            const titelElement = document.createElement('h2'); 
+            titelElement.textContent = article.title[0].content;
+            titelElement.classList.add('titel'); // CSS-Klasse 
             
             const leadElement = document.createElement('p'); 
             leadElement.textContent = article.lead[0].content;
@@ -72,26 +73,37 @@ fetchAccessToken().then(token => {
            // Erstelle den Favoriten-Button
             const favoriteButton = document.createElement('button');
             favoriteButton.textContent = 'Als Favorit markieren';
+
+            if (isFavorite(article.id)) {
+                favoriteButton.textContent = 'Favorit';
+                favoriteButton.classList.add('favorite');
+                article.isFavorite = true;
+            } else {
+                favoriteButton.textContent = 'Als Favorit markieren';
+            }
+    
             favoriteButton.addEventListener('click', () => {
                 if (article.isFavorite) {
-                    delete article.isFavorite; // Entferne den Favoritenstatus
+                    delete article.isFavorite;
                     favoriteButton.classList.remove('favorite');
-                    removeFavorite(article.id); // Entferne Favorit aus dem Local Storage
+                    removeFavorite(article.id);
+                    favoriteButton.textContent = 'Als Favorit markieren';
                 } else {
-                    article.isFavorite = true; // Setze den Artikel als Favorit
+                    article.isFavorite = true;
                     favoriteButton.classList.add('favorite');
-                    saveFavorite(article.id); // Speichere Favorit im Local Storage
+                    saveFavorite(article.id);
+                    favoriteButton.textContent = 'Favorit';
                 }
             });
 
 
-            titelElement.appendChild(titelElementText);
-            titelElement.appendChild(leadElement);
-            titelElement.appendChild(contentElement);
-            titelElement.appendChild(buttonElement);
-            titelElement.appendChild(favoriteButton);
+            ContainerElement.appendChild(titelElement);
+            ContainerElement.appendChild(leadElement);
+            ContainerElement.appendChild(contentElement);
+            ContainerElement.appendChild(buttonElement);
+            ContainerElement.appendChild(favoriteButton);
         
-            datenAnzeigeElement.appendChild(titelElement);
+            datenAnzeigeElement.appendChild(ContainerElement);
 
         });
 
@@ -132,7 +144,7 @@ fetchAccessToken().then(token => {
     fetchAPITwo(token).then(response => {
         // console.log(response.data.articles.edges);
 
-        const klimaArtikel = response.data.articles.edges.filter(article => {
+        klimaArtikel = response.data.articles.edges.filter(article => {
             return JSON.stringify(article).includes("Klima");
         })
 
@@ -172,7 +184,7 @@ fetchAccessToken().then(token => {
     fetchAPIThree(token).then(response => {
         // console.log(response.data.articles.edges);
 
-        const klimaArtikel = response.data.articles.edges.filter(article => {
+        klimaArtikel = response.data.articles.edges.filter(article => {
             return JSON.stringify(article).includes("Klima");
         })
 
@@ -220,38 +232,92 @@ function updateFavoriteArticlesView() {
     });
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const toggleFavoritesBtn = document.getElementById('toggleFavorites');
-    let showOnlyFavorites = false; // Flag, um den aktuellen Zustand zu speichern
+    let showOnlyFavorites = false;
 
     toggleFavoritesBtn.addEventListener('click', () => {
-        showOnlyFavorites = !showOnlyFavorites; // Umschalten zwischen Zuständen
+        showOnlyFavorites = !showOnlyFavorites;
         toggleFavoritesBtn.textContent = showOnlyFavorites ? "Alle Artikel anzeigen" : "Nur Favoriten anzeigen";
-        updateArticlesDisplay(showOnlyFavorites); // Aktualisiere die Anzeige basierend auf dem Zustand
+        updateArticlesDisplay(showOnlyFavorites);
     });
-});
 
-function updateArticlesDisplay(showFavorites) {
-    const alleArtikel = document.querySelectorAll('.article-container');
-    alleArtikel.forEach((container, index) => {
-        const article = klimaArtikel[index]; // Greife auf den entsprechenden Artikel zu
+    // Initialisiere die Anzeige der Artikel mit Berücksichtigung der gespeicherten Favoriten
+    fetchAccessToken().then(token => {
+        fetchAPI(token).then(response => {
+            klimaArtikel = response.data.articles.edges.filter(article => {
+                return JSON.stringify(article).includes("Klima");
+            });
 
-        if (showFavorites) {
-            // Zeige nur Favoriten
-            if (!article.isFavorite) {
-                container.style.display = 'none';
+            const datenAnzeigeElement = document.getElementById('datenAnzeige');
+            const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            klimaArtikel.forEach(article => {
+                const ContainerElement = document.createElement('div');
+                ContainerElement.classList.add('article-container');
+
+                // ... (Erstellen von titelElement, leadElement, contentElement)
+
+                const favoriteButton = document.createElement('button');
+                    favoriteButton.textContent = 'Als Favorit markieren';
+
+                // Prüfen, ob der Artikel im Local Storage als Favorit gespeichert ist
+                if (isFavorite(article.id)) {
+                    article.isFavorite = true;
+                    favoriteButton.classList.add('favorite');
+                }
+
+                favoriteButton.addEventListener('click', () => {
+                    if (article.isFavorite) {
+                        delete article.isFavorite;
+                        favoriteButton.classList.remove('favorite');
+                        removeFavorite(article.id);
+                    } else {
+                        article.isFavorite = true;
+                        favoriteButton.classList.add('favorite');
+                        saveFavorite(article.id);
+                    }
+                });
+
+                ContainerElement.appendChild(titelElement);
+                ContainerElement.appendChild(leadElement);
+                ContainerElement.appendChild(contentElement);
+                ContainerElement.appendChild(buttonElement);
+                ContainerElement.appendChild(favoriteButton);
+
+                datenAnzeigeElement.appendChild(ContainerElement);
+            });
+        });
+    });
+
+    function updateArticlesDisplay(showFavorites) {
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        klimaArtikel.forEach((article, index) => {
+            const container = document.querySelectorAll('.article-container')[index];
+            if (showFavorites) {
+                if (savedFavorites.includes(article.id)) {
+                    container.style.display = 'block';
+                } else {
+                    container.style.display = 'none';
+                }
             } else {
                 container.style.display = 'block';
             }
-        } else {
-            // Zeige alle Artikel
-            container.style.display = 'block';
-        }
-    });
+        });
+    }
+    
+    
+});
 
+function isFavorite(articleId) {
+    console.log("Prüfe Favorit: ", articleId);
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return favorites.includes(articleId);
 }
 
 function saveFavorite(articleId) {
+    console.log("Speichere Favorit: ", articleId);
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     if (!favorites.includes(articleId)) {
         favorites.push(articleId);
@@ -260,41 +326,8 @@ function saveFavorite(articleId) {
 }
 
 function removeFavorite(articleId) {
+    console.log("Entferne Favorit: ", articleId);
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     favorites = favorites.filter(id => id !== articleId);
     localStorage.setItem('favorites', JSON.stringify(favorites));
 }
-
-
-// // Daten anzeigen
-
-// const apiData = [
-//     // Hier kommt deine API-Daten-Array
-//     // ...
-// ];
-
-// const container = document.querySelector(".container");
-
-// apiData.forEach(data => {
-//     const card = document.createElement("div");
-//     card.classList.add("card");
-
-//     const title = document.createElement("h2");
-//     title.textContent = data.title;
-
-//     const lead = document.createElement("p");
-//     lead.textContent = data.lead[0].content;
-
-//     const content = document.createElement("p");
-//     content.textContent = data.content[0].content;
-
-//     const released = document.createElement("p");
-//     released.textContent = `Veröffentlicht am: ${data.releasedAt}`;
-
-//     card.appendChild(title);
-//     card.appendChild(lead);
-//     card.appendChild(content);
-//     card.appendChild(released);
-
-//     container.appendChild(card);
-// });
