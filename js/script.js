@@ -133,39 +133,36 @@ const fetchQuarterData = async(accessToken,quarter) => {//quarter=1 or 2 or 3 or
         return { error: { message: 'Error Fetching Data'}};
     }
 }
+async function fetchAllQuarters(token) {
+    try {
+        // Hier rufen wir alle vier Quartale gleichzeitig auf
+        const allQuarters = await Promise.all([
+            fetchQuarterData(token, 1),
+            fetchQuarterData(token, 2),
+            fetchQuarterData(token, 3),
+            fetchQuarterData(token, 4)
+        ]);
 
-//this function gets the data from one specific quarter and filters the articles with the word "Klima" 
-let firstQuarter=await fetchQuarterData(token,1);
-klimaArtikelOne=firstQuarter.data.articles.edges.filter(article => {
-    return JSON.stringify(article).includes("Klima");
-})
-console.log(":::::::::::::::::::::::Erstes hohlen von Artikeln: ",klimaArtikelOne);
+        // Jetzt verarbeiten wir die Ergebnisse
+        const allKlimaArticles = allQuarters.map((quarterData, index) => {
+            return quarterData.data.articles.edges.filter(article => {
+                return JSON.stringify(article).includes("Klima");
+            });
+        });
 
+        // Verkettung aller Klima-Artikel
+        klimaArtikelAll = [].concat(...allKlimaArticles);
+        console.log(":::::::::::::::::::::::Alle hohlen von Artikeln: ", klimaArtikelAll);
 
-let secondQuarter=await fetchQuarterData(token,2);
-klimaArtikelTwo=secondQuarter.data.articles.edges.filter(article => {
-    return JSON.stringify(article).includes("Klima");
-})
-console.log(":::::::::::::::::::::::Zweites hohlen von Artikeln: ",klimaArtikelTwo);
+        return klimaArtikelAll;
 
+    } catch (error) {
+        console.error('Error in fetching quarter data:', error);
+        return { error };
+    }
+}
 
-let thirdQuarter=await fetchQuarterData(token,3);
-klimaArtikelThree=thirdQuarter.data.articles.edges.filter(article => {
-    return JSON.stringify(article).includes("Klima");
-})
-console.log(":::::::::::::::::::::::Drittes hohlen von Artikeln: ",klimaArtikelThree);
-
-
-let forthQuarter=await fetchQuarterData(token,4);
-klimaArtikelFour=forthQuarter.data.articles.edges.filter(article => {
-    return JSON.stringify(article).includes("Klima");
-})
-console.log(":::::::::::::::::::::::Viertes hohlen von Artikeln: ",klimaArtikelFour);
-
-
-klimaArtikelAll = klimaArtikelOne.concat(klimaArtikelTwo,klimaArtikelThree,klimaArtikelFour);
-console.log(":::::::::::::::::::::::Alle hohlen von Artikeln: ",klimaArtikelAll);
-
+await fetchAllQuarters(token);
 
 
 const datenAnzeigeElement = document.getElementById('datenAnzeige');
