@@ -1,10 +1,8 @@
 import { key } from './key.js'
 
 let klimaArtikelAll = []; // Globale Variable
-let klimaArtikelOne = []; // Globale Variable
-let klimaArtikelTwo = []; // Globale Variable
-let klimaArtikelThree = []; // Globale Variable
-let klimaArtikelFour = []; // Globale Variable
+
+// TODO: Ladeanimation machen, weil Abfrage lang geht / Oder hinschreiben, wenn es nicht funktioniert.
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -98,17 +96,34 @@ let token;
 token=await fetchAccessToken();
 console.log("Token: ", token);
 
+// TODO: Immernoch zu wenig Anfragen, deswegen insgesamt 24 Anfragen machen
 //this function gets the data from one specific quarter
-const fetchQuarterData = async(accessToken,quarter) => {//quarter=1 or 2 or 3 or 4
+const fetchMonthData = async(accessToken,month) => {
     let url= ""
-    if(quarter==1){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-03-31T00%3A00%3A00Z"
-    }else if(quarter==2){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-04-01T00%3A00%3A00Z&publishedDateTo=2023-06-30T00%3A00%3A00Z"
-    }else if(quarter==3){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-07-01T00%3A00%3A00Z&publishedDateTo=2023-09-30T00%3A00%3A00Z"
-    }else if(quarter==4){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=DESC&publishedDateFrom=2023-10-01T00%3A00%3A00Z&publishedDateTo=2023-12-31T00%3A00%3A00Z"
+    if(month==1){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-01-31T00%3A00%3A00Z"
+    }else if(month==2){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-02-01T00%3A00%3A00Z&publishedDateTo=2023-02-28T00%3A00%3A00Z"
+    }else if(month==3){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-03-01T00%3A00%3A00Z&publishedDateTo=2023-03-31T00%3A00%3A00Z"
+    }else if(month==4){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-04-01T00%3A00%3A00Z&publishedDateTo=2023-04-30T00%3A00%3A00Z"
+    }else if(month==5){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-05-01T00%3A00%3A00Z&publishedDateTo=2023-05-31T00%3A00%3A00Z"
+    }else if(month==6){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-06-01T00%3A00%3A00Z&publishedDateTo=2023-06-30T00%3A00%3A00Z"
+    }else if(month==7){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-07-01T00%3A00%3A00Z&publishedDateTo=2023-07-31T00%3A00%3A00Z"
+    }else if(month==8){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-08-01T00%3A00%3A00Z&publishedDateTo=2023-08-31T00%3A00%3A00Z"
+    }else if(month==9){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-09-01T00%3A00%3A00Z&publishedDateTo=2023-09-30T00%3A00%3A00Z"
+    }else if(month==10){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-10-01T00%3A00%3A00Z&publishedDateTo=2023-10-31T00%3A00%3A00Z"
+    }else if(month==11){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-11-01T00%3A00%3A00Z&publishedDateTo=2023-11-30T00%3A00%3A00Z"
+    }else if(month==12){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-12-01T00%3A00%3A00Z&publishedDateTo=2023-12-31T00%3A00%3A00Z"
     }
     try {
         const NewsRequest = await fetch(url, {
@@ -133,22 +148,40 @@ const fetchQuarterData = async(accessToken,quarter) => {//quarter=1 or 2 or 3 or
         return { error: { message: 'Error Fetching Data'}};
     }
 }
-async function fetchAllQuarters(token) {
+async function fetchAllMonth(token) {
     try {
         // Hier rufen wir alle vier Quartale gleichzeitig auf
-        const allQuarters = await Promise.all([
-            fetchQuarterData(token, 1),
-            fetchQuarterData(token, 2),
-            fetchQuarterData(token, 3),
-            fetchQuarterData(token, 4)
+        const allMonth = await Promise.all([
+            fetchMonthData(token, 1),
+            fetchMonthData(token, 2),
+            fetchMonthData(token, 3),
+            fetchMonthData(token, 4),
+            fetchMonthData(token, 5),
+            fetchMonthData(token, 6),
+            fetchMonthData(token, 7),
+            fetchMonthData(token, 8),
+            fetchMonthData(token, 9),
+            fetchMonthData(token, 10),
+            fetchMonthData(token, 11),
+            fetchMonthData(token, 12)
         ]);
 
-        // Jetzt verarbeiten wir die Ergebnisse
-        const allKlimaArticles = allQuarters.map((quarterData, index) => {
-            return quarterData.data.articles.edges.filter(article => {
-                return JSON.stringify(article).includes("Klima");
+        const allKlimaArticles = allMonth.map((MonthData) => {
+            return MonthData.data.articles.edges.filter(article => {
+                const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
+                const articleString = JSON.stringify(article);
+                return keywords.some(keyword => articleString.includes(keyword));
             });
         });
+        // 541 Ergebnisse
+
+
+        // Jetzt verarbeiten wir die Ergebnisse
+        // const allKlimaArticles = allMonth.map((MonthData) => {
+        //     return MonthData.data.articles.edges.filter(article => {
+        //         return JSON.stringify(article).includes("Klimaschutz");
+        //     });
+        // });
 
         // Verkettung aller Klima-Artikel
         klimaArtikelAll = [].concat(...allKlimaArticles);
@@ -162,7 +195,7 @@ async function fetchAllQuarters(token) {
     }
 }
 
-await fetchAllQuarters(token);
+await fetchAllMonth(token);
 
 
 const datenAnzeigeElement = document.getElementById('datenAnzeige');
@@ -191,7 +224,21 @@ klimaArtikelAll.forEach(article => {
     const contentElement = document.createElement('p');
     contentElement.textContent = truncatedContent;
 
-    // Erstelle den Button
+    // Datum
+    const isoDate = article.releasedAt;
+    const date = new Date(isoDate);
+
+    function formatDate(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('de-CH', options);
+    }
+
+    const formattedDate = formatDate(date);
+
+    const releasedAt = document.createElement('p');
+    releasedAt.textContent = `Veröffentlicht am ${formattedDate}`;
+
+    // Weiterlesen Button
     const buttonElement = document.createElement('button');
     buttonElement.textContent = 'Weiterlesen';
     buttonElement.addEventListener('click', () => {
@@ -199,7 +246,7 @@ klimaArtikelAll.forEach(article => {
         window.open(article.url.url, '_blank'); // article.url.url enthält die URL
     });
 
-    // Erstelle den Favoriten-Button
+    // Favoriten Button
     const favoriteButton = document.createElement('button');
     favoriteButton.textContent = 'Als Favorit markieren';
     favoriteButton.classList.add('SecondButton');
@@ -232,6 +279,7 @@ klimaArtikelAll.forEach(article => {
     ContainerElement.appendChild(contentElement);
     ContainerElement.appendChild(buttonElement);
     ContainerElement.appendChild(favoriteButton);
+    ContainerElement.appendChild(releasedAt);
 
     datenAnzeigeElement.appendChild(ContainerElement);
 

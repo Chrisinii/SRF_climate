@@ -1,4 +1,87 @@
 body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 0 10%;
+}
+
+h1 {
+    color: #009688;
+    margin: 0;
+}
+
+/* Button-Stil */
+button {
+    display: inline-block;
+    background: #009688;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #00796b;
+}
+
+/* Artikel-Container-Stil */
+.article-container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.article-container h2 {
+    margin-top: 0;
+}
+
+.lead {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Stil für den Favoriten-Button */
+.favorite {
+    background: #ffb300;
+    color: #fff;
+}
+
+.favorite:hover {
+    background: #ffa000;
+}
+
+/* Responsive-Design */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+
+/* body {
     font-family: 'Inter', sans-serif;
     background-color: #f2f2f2;
   }
@@ -10,7 +93,6 @@ h1 {
     text-align: center;
 }
 
-/* Style for the container */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); 
@@ -18,7 +100,6 @@ h1 {
     padding: 0px 20px 0px 20px;
 }
 
-/* Style for each article container */
 .article-container {
     background-color: #c8d8e4;
     padding: 40px;
@@ -47,9 +128,9 @@ button {
 }
 
 .favorite {
-    background-color: gold; /* Oder eine andere Farbe/Styling Ihrer Wahl */
+    background-color: gold; 
 }
 
 #toggleFavorites {
     margin-bottom: 20px;
-}
+} */
