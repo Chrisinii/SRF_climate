@@ -4,7 +4,7 @@ let klimaArtikelAll = []; // Globale Variable
 
 // TODO: Ladeanimation machen, weil Abfrage lang geht / Oder hinschreiben, wenn es nicht funktioniert.
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
     const toggleFavoritesBtn = document.getElementById('toggleFavorites');
     let showOnlyFavorites = false;
@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             const datenAnzeigeElement = document.getElementById('datenAnzeige');
+
+            await fetchAllMonth(token);
 
             klimaArtikelAll.forEach(article => {
                 const ContainerElement = document.createElement('div');
@@ -150,6 +152,8 @@ const fetchMonthData = async(accessToken,month) => {
 }
 async function fetchAllMonth(token) {
     try {
+        document.getElementById('loading').style.display = 'flex';
+
         // Hier rufen wir alle vier Quartale gleichzeitig auf
         const allMonth = await Promise.all([
             fetchMonthData(token, 1),
@@ -186,9 +190,11 @@ async function fetchAllMonth(token) {
         klimaArtikelAll = [].concat(...allKlimaArticles);
         console.log(":::::::::::::::::::::::Alle hohlen von Artikeln: ", klimaArtikelAll);
 
+        document.getElementById('loading').style.display = 'none'
         return klimaArtikelAll;
 
     } catch (error) {
+        document.getElementById('loading').style.display = 'none';
         console.error('Error in fetching quarter data:', error);
         return { error };
     }
