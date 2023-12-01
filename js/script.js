@@ -173,7 +173,6 @@ async function fetchAllMonth(token) {
                 return keywords.some(keyword => articleString.includes(keyword));
             });
         });
-        // 541 Ergebnisse
 
 
         // Jetzt verarbeiten wir die Ergebnisse
