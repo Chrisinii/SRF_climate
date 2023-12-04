@@ -35,6 +35,7 @@ fetchAccessToken().then(token => {
 
         const datenAnzeigeElement = document.getElementById('datenAnzeige');
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const savedReads = JSON.parse(localStorage.getItem('gelesen')) || [];
 
         klimaArtikel.forEach(article => {
 
@@ -49,7 +50,6 @@ fetchAccessToken().then(token => {
             leadElement.textContent = article.lead[0].content;
             leadElement.classList.add('lead'); // CSS-Klasse 
             
-            // Elemente aus article.content.text Array zusammenfügen
             const contentArray = article.content.text;
             const contentText = contentArray.join(' '); // Alle Elemente zusammenführen
             
@@ -68,14 +68,29 @@ fetchAccessToken().then(token => {
                 window.open(article.url.url, '_blank'); // article.url.url enthält die URL
             });
 
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `checkbox-${article.id}`;
+        
+            // Schritt 2: Initialer Status der Checkbox
+            checkbox.checked = isChecked(article.id);
+        
+            // Schritt 3: Event Listener für die Checkbox
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    saveCheckedState(article.id);
+                } else {
+                    removeCheckedState(article.id);
+                }
+            });
+
            // Erstelle den Favoriten-Button
             const favoriteButton = document.createElement('button');
             favoriteButton.textContent = 'Als Favorit markieren';
-            favoriteButton.classList.add('SecondButton');
 
             if (isFavorite(article.id)) {
                 favoriteButton.textContent = 'Favorit';
-                favoriteButton.classList.add('favorite');
+                favoriteButton.classList.add('favorite'); // CSS-Klasse
                 article.isFavorite = true;
             } else {
                 favoriteButton.textContent = 'Als Favorit markieren';
@@ -101,6 +116,7 @@ fetchAccessToken().then(token => {
             ContainerElement.appendChild(contentElement);
             ContainerElement.appendChild(buttonElement);
             ContainerElement.appendChild(favoriteButton);
+            ContainerElement.appendChild(checkbox);
         
             datenAnzeigeElement.appendChild(ContainerElement);
 
@@ -137,21 +153,6 @@ export const fetchAPI = async(accessToken) => {
         console.error('Error:', error);  // Log the error to the console
         return { error: { message: 'Error Fetching Data'}};
     }
-}
-
-
-
-// Favoriten anzeigen
-
-function updateFavoriteArticlesView() {
-    const alleArtikel = document.querySelectorAll('.article-container');
-    alleArtikel.forEach(container => {
-        if (container.querySelector('.favorite')) {
-            container.style.display = 'block'; // Zeige Favoriten
-        } else {
-            container.style.display = 'none'; // Verstecke Nicht-Favoriten
-        }
-    });
 }
 
 
@@ -251,4 +252,24 @@ function removeFavorite(articleId) {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     favorites = favorites.filter(id => id !== articleId);
     localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+
+function isChecked(articleId) {
+    const checkedItems = JSON.parse(localStorage.getItem('checkedItems')) || [];
+    return checkedItems.includes(articleId);
+}
+
+function saveCheckedState(articleId) {
+    let checkedItems = JSON.parse(localStorage.getItem('checkedItems')) || [];
+    if (!checkedItems.includes(articleId)) {
+        checkedItems.push(articleId);
+        localStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+    }
+}
+
+function removeCheckedState(articleId) {
+    let checkedItems = JSON.parse(localStorage.getItem('checkedItems')) || [];
+    checkedItems = checkedItems.filter(id => id !== articleId);
+    localStorage.setItem('checkedItems', JSON.stringify(checkedItems));
 }

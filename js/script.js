@@ -101,31 +101,55 @@ console.log("Token: ", token);
 // TODO: Immernoch zu wenig Anfragen, deswegen insgesamt 24 Anfragen machen
 //this function gets the data from one specific quarter
 const fetchMonthData = async(accessToken,month) => {
-    let url= ""
+    let url= "";
     if(month==1){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-01-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-01-01T00%3A00%3A00Z&publishedDateTo=2023-01-15T00%3A00%3A00Z"
     }else if(month==2){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-02-01T00%3A00%3A00Z&publishedDateTo=2023-02-28T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-01-16T00%3A00%3A00Z&publishedDateTo=2023-01-31T00%3A00%3A00Z"
     }else if(month==3){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-03-01T00%3A00%3A00Z&publishedDateTo=2023-03-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-02-01T00%3A00%3A00Z&publishedDateTo=2023-02-15T00%3A00%3A00Z"
     }else if(month==4){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-04-01T00%3A00%3A00Z&publishedDateTo=2023-04-30T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-02-16T00%3A00%3A00Z&publishedDateTo=2023-02-28T00%3A00%3A00Z"
     }else if(month==5){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-05-01T00%3A00%3A00Z&publishedDateTo=2023-05-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-03-01T00%3A00%3A00Z&publishedDateTo=2023-03-15T00%3A00%3A00Z"
     }else if(month==6){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-06-01T00%3A00%3A00Z&publishedDateTo=2023-06-30T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-03-16T00%3A00%3A00Z&publishedDateTo=2023-03-31T00%3A00%3A00Z"
     }else if(month==7){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-07-01T00%3A00%3A00Z&publishedDateTo=2023-07-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-04-01T00%3A00%3A00Z&publishedDateTo=2023-04-15T00%3A00%3A00Z"
     }else if(month==8){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-08-01T00%3A00%3A00Z&publishedDateTo=2023-08-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-04-16T00%3A00%3A00Z&publishedDateTo=2023-04-30T00%3A00%3A00Z"
     }else if(month==9){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-09-01T00%3A00%3A00Z&publishedDateTo=2023-09-30T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-05-01T00%3A00%3A00Z&publishedDateTo=2023-05-15T00%3A00%3A00Z"
     }else if(month==10){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-10-01T00%3A00%3A00Z&publishedDateTo=2023-10-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-05-16T00%3A00%3A00Z&publishedDateTo=2023-05-31T00%3A00%3A00Z"
     }else if(month==11){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-11-01T00%3A00%3A00Z&publishedDateTo=2023-11-30T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-06-01T00%3A00%3A00Z&publishedDateTo=2023-06-15T00%3A00%3A00Z"
     }else if(month==12){
-        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-12-01T00%3A00%3A00Z&publishedDateTo=2023-12-31T00%3A00%3A00Z"
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-06-16T00%3A00%3A00Z&publishedDateTo=2023-06-30T00%3A00%3A00Z"
+    }else if(month==13){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-07-01T00%3A00%3A00Z&publishedDateTo=2023-07-15T00%3A00%3A00Z"
+    }else if(month==14){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-07-16T00%3A00%3A00Z&publishedDateTo=2023-07-31T00%3A00%3A00Z"
+    }else if(month==15){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-08-01T00%3A00%3A00Z&publishedDateTo=2023-08-15T00%3A00%3A00Z"
+    }else if(month==16){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-08-16T00%3A00%3A00Z&publishedDateTo=2023-08-31T00%3A00%3A00Z"
+    }else if(month==17){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-09-01T00%3A00%3A00Z&publishedDateTo=2023-09-15T00%3A00%3A00Z"
+    }else if(month==18){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-09-16T00%3A00%3A00Z&publishedDateTo=2023-09-30T00%3A00%3A00Z"
+    }else if(month==19){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-10-01T00%3A00%3A00Z&publishedDateTo=2023-10-15T00%3A00%3A00Z"
+    }else if(month==20){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-10-16T00%3A00%3A00Z&publishedDateTo=2023-10-31T00%3A00%3A00Z"
+    }else if(month==21){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-11-01T00%3A00%3A00Z&publishedDateTo=2023-11-15T00%3A00%3A00Z"
+    }else if(month==22){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-11-16T00%3A00%3A00Z&publishedDateTo=2023-11-30T00%3A00%3A00Z"
+    }else if(month==23){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-12-01T00%3A00%3A00Z&publishedDateTo=2023-12-15T00%3A00%3A00Z"
+    }else if(month==24){
+        url="https://api.srgssr.ch/srgssr-contents/v1/articles?items=500&bu=SRF&genre=News&sort=releasedAt&order=ASC&publishedDateFrom=2023-12-16T00%3A00%3A00Z&publishedDateTo=2023-12-31T00%3A00%3A00Z"
     }
     try {
         const NewsRequest = await fetch(url, {
@@ -143,7 +167,9 @@ const fetchMonthData = async(accessToken,month) => {
             return NewsRequest;
         }
 
-        console.log(NewsRequest)
+        // console.log(fetchMonthData);
+
+        // console.log(NewsRequest)
         return await NewsRequest.json();
     } catch(error) {
         console.error('Error:', error);  // Log the error to the console
@@ -167,8 +193,26 @@ async function fetchAllMonth(token) {
             fetchMonthData(token, 9),
             fetchMonthData(token, 10),
             fetchMonthData(token, 11),
-            fetchMonthData(token, 12)
+            fetchMonthData(token, 12),
+            fetchMonthData(token, 13),
+            fetchMonthData(token, 14),
+            fetchMonthData(token, 15),
+            fetchMonthData(token, 16),
+            fetchMonthData(token, 17),
+            fetchMonthData(token, 18),
+            fetchMonthData(token, 19),
+            fetchMonthData(token, 20),
+            fetchMonthData(token, 21),
+            fetchMonthData(token, 21),
+            fetchMonthData(token, 22),
+            fetchMonthData(token, 23),
+            fetchMonthData(token, 24)
         ]);
+
+        // Ausgabe der einzelnen Daten aus den Arrays (zur Kontrolle, ob alle Datensätze unter 500 Elementen)
+        // allMonth.forEach((monthData, index) => {
+        //     console.log(`Daten für Monat ${index + 1}: `, monthData);
+        // });
 
         const allKlimaArticles = allMonth.map((MonthData) => {
             return MonthData.data.articles.edges.filter(article => {
@@ -178,17 +222,9 @@ async function fetchAllMonth(token) {
             });
         });
 
-
-        // Jetzt verarbeiten wir die Ergebnisse
-        // const allKlimaArticles = allMonth.map((MonthData) => {
-        //     return MonthData.data.articles.edges.filter(article => {
-        //         return JSON.stringify(article).includes("Klimaschutz");
-        //     });
-        // });
-
         // Verkettung aller Klima-Artikel
         klimaArtikelAll = [].concat(...allKlimaArticles);
-        console.log(":::::::::::::::::::::::Alle hohlen von Artikeln: ", klimaArtikelAll);
+        console.log("Alle Klima Artikeln: ", klimaArtikelAll);
 
         document.getElementById('loading').style.display = 'none'
         return klimaArtikelAll;
@@ -242,6 +278,7 @@ klimaArtikelAll.forEach(article => {
 
     const releasedAt = document.createElement('p');
     releasedAt.textContent = `Veröffentlicht am ${formattedDate}`;
+    releasedAt.classList.add('releasedAt');
 
     // Weiterlesen Button
     const buttonElement = document.createElement('button');
@@ -249,6 +286,33 @@ klimaArtikelAll.forEach(article => {
     buttonElement.addEventListener('click', () => {
         // Weiterleitung zur angegebenen URL in einem neuen Tab
         window.open(article.url.url, '_blank'); // article.url.url enthält die URL
+    });
+
+    // Gelesen Button
+    const readButton = document.createElement('button');
+    readButton.textContent = 'gelesen';
+    readButton.classList.add('SecondButton');
+
+    if (isRead(article.id)) {
+        readButton.textContent = 'gelesen';
+        readButton.classList.add('gelesen');
+        article.isRead = true;
+    } else {
+        readButton.textContent = 'gelesen';
+    }
+
+    readButton.addEventListener('click', () => {
+        if (article.isRead) {
+            delete article.isRead;
+            readButton.classList.remove('gelesen');
+            removeRead(article.id);
+            readButton.textContent = 'gelesen';
+        } else {
+            article.isRead = true;
+            readButton.classList.add('gelesen');
+            saveRead(article.id);
+            readButton.textContent = 'gelesen';
+        }
     });
 
     // Favoriten Button
@@ -279,13 +343,14 @@ klimaArtikelAll.forEach(article => {
     });
 
 
+    ContainerElement.appendChild(releasedAt);
     ContainerElement.appendChild(titelElement);
     ContainerElement.appendChild(leadElement);
     ContainerElement.appendChild(contentElement);
     ContainerElement.appendChild(buttonElement);
+    ContainerElement.appendChild(readButton);
     ContainerElement.appendChild(favoriteButton);
-    ContainerElement.appendChild(releasedAt);
-
+    
     datenAnzeigeElement.appendChild(ContainerElement);
 
 });
@@ -313,4 +378,29 @@ function removeFavorite(articleId) {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     favorites = favorites.filter(id => id !== articleId);
     localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+
+// Gelesen anzeigen
+
+function isRead(articleId) {
+    // console.log("Prüfe Favorit: ", articleId);
+    const read = JSON.parse(localStorage.getItem('gelesen')) || [];
+    return read.includes(articleId);
+}
+
+function saveRead(articleId) {
+    console.log("Speichere Read: ", articleId);
+    let read = JSON.parse(localStorage.getItem('gelesen')) || [];
+    if (!read.includes(articleId)) {
+        read.push(articleId);
+        localStorage.setItem('gelesen', JSON.stringify(read));
+    }
+}
+
+function removeRead(articleId) {
+    console.log("Entferne Read: ", articleId);
+    let read = JSON.parse(localStorage.getItem('gelesen')) || [];
+    read = read.filter(id => id !== articleId);
+    localStorage.setItem('gelesen', JSON.stringify(read));
 }
