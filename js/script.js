@@ -2,8 +2,6 @@ import { key } from './key.js'
 
 let klimaArtikelAll = []; // Globale Variable
 
-// TODO: Ladeanimation machen, weil Abfrage lang geht / Oder hinschreiben, wenn es nicht funktioniert.
-
 document.addEventListener('DOMContentLoaded', async () => {
 
     const toggleFavoritesBtn = document.getElementById('toggleFavorites');
@@ -15,6 +13,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         showOnlyFavorites = !showOnlyFavorites;
         toggleFavoritesBtn.textContent = showOnlyFavorites ? "Alle Artikel anzeigen" : "Nur Favoriten anzeigen";
         updateArticlesDisplay(showOnlyFavorites);
+    });
+
+    const toggleReadBtn = document.getElementById('toggleRead');
+    let hideRead = false;
+    console.log("Document loaded 2")
+
+    toggleReadBtn.addEventListener('click', () => {
+        console.log("Hide Read")
+        hideRead = !hideRead;
+        toggleReadBtn.textContent = hideRead ? "Alle Artikel anzeigen" : "Gelesene Artikel ausblenden";
+        updateArticlesDisplayForRead(hideRead);
     });
 
 
@@ -48,11 +57,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
 
+                const readButton = document.createElement('button');
+                readButton.textContent = 'Gelesen';
+
+                if (isRead(article.id)) {
+                    article.isRead = true;
+                    readButton.classList.add('gelesen');
+                }
+
+                readButton.addEventListener('click', () => {
+                    if (article.isRead) {
+                        delete article.isRead;
+                        readButton.classList.remove('gelesen');
+                        removeRead(article.id);
+                    } else {
+                        article.isRead = true;
+                        readButton.classList.add('gelesen');
+                        saveRead(article.id);
+                    }
+                });
+
                 datenAnzeigeElement.appendChild(ContainerElement);
             });
     
-
-    console.log("Klimaartikel = ", klimaArtikelAll);
 
     function updateArticlesDisplay(showFavorites) {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -69,7 +96,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
+    function updateArticlesDisplayForRead(hideRead) {
+        const readArticles = JSON.parse(localStorage.getItem('gelesen')) || [];
     
+        klimaArtikelAll.forEach((article, index) => {
+            const container = document.querySelectorAll('.article-container')[index];
+            if (readArticles.includes(article.id)) {
+                container.style.display = hideRead ? 'none' : 'block';
+            } else {
+                if (!hideRead) {
+                    container.style.display = 'block';
+                }
+            }
+        });
+    }
     
 });
 
@@ -93,13 +134,12 @@ export const fetchAccessToken = async() => {
     }
 }
 
-////////////////////Hohlen vom Token/////////////////////////
+// Token holen
 let token;
 token=await fetchAccessToken();
 console.log("Token: ", token);
 
-// TODO: Immernoch zu wenig Anfragen, deswegen insgesamt 24 Anfragen machen
-//this function gets the data from one specific quarter
+
 const fetchMonthData = async(accessToken,month) => {
     let url= "";
     if(month==1){
@@ -290,15 +330,14 @@ klimaArtikelAll.forEach(article => {
 
     // Gelesen Button
     const readButton = document.createElement('button');
-    readButton.textContent = 'gelesen';
-    readButton.classList.add('SecondButton');
+    readButton.textContent = 'Gelesen';
 
     if (isRead(article.id)) {
-        readButton.textContent = 'gelesen';
+        readButton.textContent = 'Gelesen';
         readButton.classList.add('gelesen');
         article.isRead = true;
     } else {
-        readButton.textContent = 'gelesen';
+        readButton.textContent = 'Gelesen';
     }
 
     readButton.addEventListener('click', () => {
@@ -306,19 +345,18 @@ klimaArtikelAll.forEach(article => {
             delete article.isRead;
             readButton.classList.remove('gelesen');
             removeRead(article.id);
-            readButton.textContent = 'gelesen';
+            readButton.textContent = 'Gelesen';
         } else {
             article.isRead = true;
             readButton.classList.add('gelesen');
             saveRead(article.id);
-            readButton.textContent = 'gelesen';
+            readButton.textContent = 'Gelesen';
         }
     });
 
     // Favoriten Button
     const favoriteButton = document.createElement('button');
     favoriteButton.textContent = 'Als Favorit markieren';
-    favoriteButton.classList.add('SecondButton');
 
     if (isFavorite(article.id)) {
         favoriteButton.textContent = 'Favorit';

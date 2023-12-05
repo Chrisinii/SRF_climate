@@ -100,12 +100,12 @@ button:hover {
 }
 
 .favorite {
-    background: #ffb300;
+    background: #ffb300 !important;
     color: #fff;
 }
 
 .gelesen {
-    background: #f44336;
+    background: #f44336 !important;
     color: #fff;
 }
 
@@ -118,6 +118,9 @@ button:hover {
     .container {
         width: 95%;
     }
+}
+
+@media screen and (max-width: 1150px) {
 
     .header-container {
         display: flex;
@@ -128,6 +131,14 @@ button:hover {
         margin-bottom: 20px;
         padding: 0 10%;
     }
+
+    h1 {
+        text-align: center;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
-
-
