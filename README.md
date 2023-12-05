@@ -21,6 +21,6 @@ Dieses IM5 Projekt soll mich bei der Inhaltsanalyse der Beiträge auf srf.ch unt
 ## Hilfsmittel
 
 - ChatGPT 
-- GitHub [API Fetch mit JS](https://github.com/whereisalex/weather-app)
+- GitHub: [API Fetch mit JS](https://github.com/whereisalex/weather-app)
 
 
