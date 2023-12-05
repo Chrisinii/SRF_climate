@@ -15,7 +15,7 @@ Dieses IM5 Projekt soll mich bei der Inhaltsanalyse der Beiträge auf srf.ch unt
 
 - Der Zugang zur API ist nicht öffentlich zugänglich, daher musste ich einen speziellen Zugang beantragen.
 - Während der Durchführung meines Projekts war die API mehrmals nicht verfügbar, was die Entwicklung erschwerte.
-- Die Dokumentation der API ist unvollständig und bietet keine klare Anleitung für die Anbindung per JavaScript. Um diese Hürde zu überwinden, habe ich auf GitHub ein Beispielprojekt gefunden, das die öffentliche Meteo API erfolgreich anspricht.
+- Die Dokumentation der API ist unvollständig und bietet keine klare Anleitung für die Anbindung per JavaScript. Auf GitHub konnte ich ein Projekt finden, das die öffentliche SRGSSR Meteo API anknüpft und konnte mich dan dem Code orientieren.
 - Die API beschränkt die Anzahl der zurückgegebenen Daten pro Anfrage auf 500 Elemente. Da ich jedoch die Artikel eines ganzen Jahres durchsuchen musste, war ich gezwungen, mehrere Anfragen zu stellen (insgesamt 24 Anfragen). Dies erwies sich als komplexer als erwartet und erforderte die Hilfe von Alen, um erfolgreich implementiert zu werden.
 
 ## Hilfsmittel

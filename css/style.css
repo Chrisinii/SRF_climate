@@ -1,7 +1,7 @@
 /* TODO: Auf grösserem Screen zwei Artikel nebeneinander */
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@ body {
 }
 
 .loading-container {
-    display: none; /* Standardmäßig ausgeblendet */
+    display: none; 
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -113,10 +113,47 @@ button:hover {
     background: #ffa000;
 }
 
+footer {
+    background: #009688; /* Hintergrundfarbe */
+    color: #fff; /* Textfarbe */
+    padding: 10px 20px; /* Innenabstand */
+    position: fixed; /* Fixierte Positionierung */
+    bottom: 0; /* Am unteren Rand des Viewports */
+    left: 0; /* Am linken Rand des Viewports */
+    right: 0; /* Streckt sich bis zum rechten Rand des Viewports */
+    display: flex; /* Flex-Container */
+    justify-content: space-between; /* Platz zwischen den Kinderelementen */
+    align-items: center; /* Zentriert die Elemente vertikal */
+}
+
+footer p {
+    margin: 0; /* Entfernt den Standardabstand */
+}
+
+footer a {
+    color: #fff; /* Weißer Text für Links */
+    text-decoration: none; /* Entfernt die Unterstreichung von Links */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Fügt eine Unterstreichung beim Hover hinzu */
+}
+
 /* Responsive-Design */
 @media screen and (max-width: 768px) {
     .container {
         width: 95%;
+    }
+
+    footer {
+        flex-direction: column; /* Stapelt die Elemente auf kleineren Bildschirmen vertikal */
+        padding: 10px;
+    }
+
+    footer p {
+        margin-bottom: 10px; /* Fügt Abstand zwischen den Paragraphen hinzu */
+        width: 100%; /* Stellt sicher, dass die Paragraphen die volle Breite einnehmen */
+        text-align: center; /* Zentriert den Text */
     }
 }
 
