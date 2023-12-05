@@ -1,6 +1,4 @@
-# SRF_climate
-
-## Klimakrisen Berichterstattung SRF im Jahr 2023
+# Klimakrisen Berichterstattung SRF im Jahr 2023
 
 Im Rahmen meiner Bachelorarbeit möchte ich gerne untersuchen, wie SRF im Jahr 2023 über die Auswirkungen der Klimakrise berichtet hat.
 
