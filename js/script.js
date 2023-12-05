@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const readButton = document.createElement('button');
                 readButton.textContent = 'Gelesen';
 
+                // Prüfen, ob der Artikel im Local Storage als gelesen gespeichert ist
                 if (isRead(article.id)) {
                     article.isRead = true;
                     readButton.classList.add('gelesen');
@@ -130,7 +131,7 @@ export const fetchAccessToken = async() => {
         return accessResponse.access_token;
     } catch(error) {
         console.error('Access Token Error:', error);
-        throw error;  // Re-throw the error to be handled by the caller
+        throw error; 
     }
 }
 
@@ -207,12 +208,9 @@ const fetchMonthData = async(accessToken,month) => {
             return NewsRequest;
         }
 
-        // console.log(fetchMonthData);
-
-        // console.log(NewsRequest)
         return await NewsRequest.json();
     } catch(error) {
-        console.error('Error:', error);  // Log the error to the console
+        console.error('Error:', error);  
         return { error: { message: 'Error Fetching Data'}};
     }
 }
@@ -220,7 +218,7 @@ async function fetchAllMonth(token) {
     try {
         document.getElementById('loading').style.display = 'flex';
 
-        // Hier rufen wir alle vier Quartale gleichzeitig auf
+        // Alle Anfragen gleichzeitig aufrufen
         const allMonth = await Promise.all([
             fetchMonthData(token, 1),
             fetchMonthData(token, 2),
@@ -324,8 +322,8 @@ klimaArtikelAll.forEach(article => {
     const buttonElement = document.createElement('button');
     buttonElement.textContent = 'Weiterlesen';
     buttonElement.addEventListener('click', () => {
-        // Weiterleitung zur angegebenen URL in einem neuen Tab
-        window.open(article.url.url, '_blank'); // article.url.url enthält die URL
+        
+        window.open(article.url.url, '_blank'); 
     });
 
     // Gelesen Button
