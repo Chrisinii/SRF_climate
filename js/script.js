@@ -247,11 +247,6 @@ async function fetchAllMonth(token) {
             fetchMonthData(token, 24)
         ]);
 
-        // Ausgabe der einzelnen Daten aus den Arrays (zur Kontrolle, ob alle Datensätze unter 500 Elementen)
-        // allMonth.forEach((monthData, index) => {
-        //     console.log(`Daten für Monat ${index + 1}: `, monthData);
-        // });
-
         const allKlimaArticles = allMonth.map((MonthData) => {
             return MonthData.data.articles.edges.filter(article => {
                 const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
@@ -392,10 +387,9 @@ klimaArtikelAll.forEach(article => {
 });
 
 
-// Favoriten anzeigen
 
+// Favoriten anzeigen
 function isFavorite(articleId) {
-    // console.log("Prüfe Favorit: ", articleId);
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.includes(articleId);
 }
@@ -418,9 +412,7 @@ function removeFavorite(articleId) {
 
 
 // Gelesen anzeigen
-
 function isRead(articleId) {
-    // console.log("Prüfe Favorit: ", articleId);
     const read = JSON.parse(localStorage.getItem('gelesen')) || [];
     return read.includes(articleId);
 }
