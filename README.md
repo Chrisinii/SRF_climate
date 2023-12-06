@@ -18,6 +18,10 @@ Dieses IM5 Projekt soll mich bei der Inhaltsanalyse der Beiträge auf srf.ch unt
 - Die Dokumentation der API ist unvollständig und bietet keine klare Anleitung für die Anbindung per JavaScript. Auf GitHub konnte ich ein Projekt finden, das die öffentliche SRGSSR Meteo API anknüpft und konnte mich dan dem Code orientieren.
 - Die API beschränkt die Anzahl der zurückgegebenen Daten pro Anfrage auf 500 Elemente. Da ich jedoch die Artikel eines ganzen Jahres durchsuchen musste, war ich gezwungen, mehrere Anfragen zu stellen (insgesamt 24 Anfragen). Dies erwies sich als komplexer als erwartet und erforderte die Hilfe von Alen, um erfolgreich implementiert zu werden.
 
+### Browser
+
+Mit Safari funktioniert die Webseite nicht vollständig. Die Buttons "Meine Favoriten" und "Gelesene ausblenden" funktionieren nur mit Chrome, Brave und Firefox.
+
 ## Hilfsmittel
 
 - ChatGPT 
