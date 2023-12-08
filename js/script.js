@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const toggleFavoritesBtn = document.getElementById('toggleFavorites');
     let showOnlyFavorites = false;
-    console.log("Document loaded")
 
     toggleFavoritesBtn.addEventListener('click', () => {
         console.log("Favoriten filtern")
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const toggleReadBtn = document.getElementById('toggleRead');
     let hideRead = false;
-    console.log("Document loaded 2")
 
     toggleReadBtn.addEventListener('click', () => {
         console.log("Hide Read")
@@ -138,7 +136,7 @@ export const fetchAccessToken = async() => {
 // Token holen
 let token;
 token=await fetchAccessToken();
-console.log("Token: ", token);
+// console.log("Token: ", token);
 
 
 const fetchMonthData = async(accessToken,month) => {
