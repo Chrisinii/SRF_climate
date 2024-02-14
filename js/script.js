@@ -247,7 +247,23 @@ async function fetchAllMonth(token) {
 
         const allKlimaArticles = allMonth.map((MonthData) => {
             return MonthData.data.articles.edges.filter(article => {
-                const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
+
+                // Einzelner Begriff
+                const keywords = ["Temperaturrekord"]
+
+                // Allgemein Klima
+                // const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
+
+                // Extremwetterereignisse & Temperaturrekorde (328 Artikel)
+                // const keywords = ["Hitzewellen", "Dürren", "Überschwemmungen", "Starkregen", "Stürme", "Waldbrände", "Klimakatastrophen", "Klimawandel Auswirkungen", "Unwetter", "Naturkatastrophen", "Globale Erwärmung", "Hitzerekord", "Temperaturanstieg", "Klimawandel Folgen", "Historische Temperaturdaten", "Jahresdurchschnittstemperatur", "Klimaerwärmung", "CO2-Emissionen", "IPCC Bericht", "Klimanotfall"];
+
+                // Extremwetterereignisse
+                // const keywords = ["Hitzewellen", "Dürren", "Überschwemmungen", "Starkregen", "Stürme", "Waldbrände", "Klimakatastrophen", "Klimawandel Auswirkungen", "Unwetter", "Naturkatastrophen"];
+
+                // Klimagerächtigkeit (10 Artikel)
+                // const keywords = ["Klimagerechtigkeit", "Klimaflüchtlinge"];
+
+
                 const articleString = JSON.stringify(article);
                 return keywords.some(keyword => articleString.includes(keyword));
             });
