@@ -249,10 +249,10 @@ async function fetchAllMonth(token) {
             return MonthData.data.articles.edges.filter(article => {
 
                 // Einzelner Begriff
-                const keywords = ["Temperaturrekord"]
+                // const keywords = ["Temperaturrekord"]
 
                 // Allgemein Klima
-                // const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
+                const keywords = ["Klimaschutz", "Klimawandel", "Klimaerwärmung", "Klimakrise", "Klimakatastrophe"];
 
                 // Extremwetterereignisse & Temperaturrekorde (328 Artikel)
                 // const keywords = ["Hitzewellen", "Dürren", "Überschwemmungen", "Starkregen", "Stürme", "Waldbrände", "Klimakatastrophen", "Klimawandel Auswirkungen", "Unwetter", "Naturkatastrophen", "Globale Erwärmung", "Hitzerekord", "Temperaturanstieg", "Klimawandel Folgen", "Historische Temperaturdaten", "Jahresdurchschnittstemperatur", "Klimaerwärmung", "CO2-Emissionen", "IPCC Bericht", "Klimanotfall"];
